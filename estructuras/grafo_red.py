@@ -98,3 +98,55 @@ class GrafoRed:
             etiqueta = "origen" if i == 0 else ("destino" if i == len(ruta) - 1 else "salto intermedio")
             print(f"  {i}. {salto}  ({etiqueta})")
         print(f"Costo total (latencia acumulada): {costo} ms")
+
+    # ------------------------------------------------------------------ #
+    # Diagnóstico: BFS / DFS
+    # ------------------------------------------------------------------ #
+    def bfs(self, inicio):
+        """Recorrido en anchura. Devuelve la lista de servidores alcanzados desde 'inicio'."""
+        if inicio not in self.adyacencia:
+            return []
+        visitados = []
+        vistos = {inicio}
+        cola = deque([inicio])
+        while cola:
+            actual = cola.popleft()
+            visitados.append(actual)
+            for vecino in self.adyacencia[actual]:
+                if vecino not in vistos:
+                    vistos.add(vecino)
+                    cola.append(vecino)
+        return visitados
+
+    def dfs(self, inicio, visitados=None):
+        """Recorrido en profundidad, recursivo."""
+        if visitados is None:
+            visitados = []
+        if inicio not in self.adyacencia or inicio in visitados:
+            return visitados
+        visitados.append(inicio)
+        for vecino in self.adyacencia[inicio]:
+            if vecino not in visitados:
+                self.dfs(vecino, visitados)
+        return visitados
+
+    def ping_general(self):
+        """'Ping General': recorre el grafo y reporta si todos los servidores
+        están comunicados, o cuáles quedan aislados / en una sub-red separada."""
+        servidores = list(self.adyacencia.keys())
+        if not servidores:
+            print("No hay servidores registrados en la red.")
+            return
+
+        aislados = [s for s in servidores if not self.adyacencia[s]]
+        alcanzados = set(self.bfs(servidores[0]))
+        no_alcanzados = [s for s in servidores if s not in alcanzados and s not in aislados]
+
+        if not aislados and not no_alcanzados:
+            print("Todos los servidores están comunicados entre sí.")
+            return
+
+        if aislados:
+            print(f"Servidor(es) aislado(s) (sin ninguna conexión): {', '.join(aislados)}")
+        if no_alcanzados:
+            print(f"Servidor(es) en una sub-red separada (no llegan a '{servidores[0]}'): {', '.join(no_alcanzados)}")
