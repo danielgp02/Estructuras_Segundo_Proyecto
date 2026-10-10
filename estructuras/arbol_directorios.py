@@ -89,3 +89,15 @@ class ArbolDirectorios:
         eliminados =self._eliminar_subarbol(nodo)
         nodo.padre.hijos.remove(nodo)
         return True, f"Elemento '{nodo.nombre}' y sus {eliminados} elementos hijos eliminados de '{self._ruta_completa(nodo.padre)}'."
+    
+    def _eliminar_subarbol(self, nodo):
+        contador = 0
+        if nodo.tipo == "carpeta":
+            for hijo in nodo.hijos:
+                contador += self._eliminar_subarbol(hijo)
+                nodo.hijos.remove(hijo)
+                hijo.padre = None
+        contador += 1 
+        return contador
+    
+    
