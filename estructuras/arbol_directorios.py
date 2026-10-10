@@ -81,3 +81,11 @@ class ArbolDirectorios:
                  if resultado is not None:
                      return resultado
          return None
+     
+    def eliminar(self, ruta):
+        nodo = self._navegar(ruta)
+        if nodo is None or nodo.padre is None:
+            return False, f"La ruta '{ruta}' no existe o es la raíz."
+        eliminados =self._eliminar_subarbol(nodo)
+        nodo.padre.hijos.remove(nodo)
+        return True, f"Elemento '{nodo.nombre}' y sus {eliminados} elementos hijos eliminados de '{self._ruta_completa(nodo.padre)}'."
