@@ -42,6 +42,42 @@ class ArbolDirectorios:
             actual = siguente
         return actual
     
+    def _ruta_completa(self, nodo):
+        partes = []
+        actual = nodo
+        while actual is not None and actual.padre is not None:
+            partes.insert(0, actual.nombre)
+            actual = actual.padre
+        return "/" + "/".join(partes)  # Exclude the root's name
     
             
+    def crear_carpeta(self, ruta_padre, nombre_nueva):
+        padre = self._navegar(ruta_padre)
+        if padre is None or padre.tipo != "carpeta":
+            return False, f"La ruta '{ruta_padre}' no existe o no es una carpeta."
+        if padre.buscar_hijo_directo(nombre_nueva) is not None:
+            return False, f"Ya existe un elemento llamado '{nombre_nueva}' en '{ruta_padre}'."
+        padre.agregar_hijo(Carpeta(nombre_nueva))
+        return True, f"Carpeta '{nombre_nueva}' creada en '{ruta_padre}'."
                 
+                
+    def crear_archivo(self, ruta_padre, nombre_nuevo, contenido=""):
+        padre = self._navegar(ruta_padre)
+        if padre is None or padre.tipo != "carpeta":
+            return False, f"La ruta '{ruta_padre}' no existe o no es una carpeta."
+        if padre.buscar_hijo_directo(nombre_nuevo) is not None:
+            return False, f"Ya existe un elemento llamado '{nombre_nuevo}' en '{ruta_padre}'."
+        padre.agregar_hijo(Archivo(nombre_nuevo, contenido))
+        return True, f"Archivo '{nombre_nuevo}' creado en '{ruta_padre}'."
+    
+    def buscar(self, nombre, nodo=None):
+         if nodo is None:
+            nodo = self.raiz
+         if nodo.nombre == nombre:
+             return self._ruta_completa(nodo)
+         if nodo.tipo == "carpeta":
+             for hijo in nodo.hijos:
+                 resultado = self.buscar(nombre, hijo)
+                 if resultado is not None:
+                     return resultado
+         return None
