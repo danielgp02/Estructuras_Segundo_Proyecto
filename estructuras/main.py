@@ -140,3 +140,36 @@ class NetworkOS:
                 break
             else:
                 print("Opción inválida.")
+    
+    def menu_principal(self):
+        while True:
+            print("\n========== NETWORK OS ==========")
+            print("1) Crear servidor")
+            print("2) Sistema de archivos de un servidor")
+            print("3) Usuarios / autenticación de un servidor")
+            print("4) Topología y enrutamiento de red")
+            print("5) Ver log de auditoría")
+            print("0) Salir")
+            opcion = input("Opción: ").strip()
+
+            if opcion == "1":
+                nombre = input("Nombre del nuevo servidor: ")
+                self.crear_servidor(nombre)
+            elif opcion == "2":
+                self.menu_archivos()
+            elif opcion == "3":
+                self.menu_usuarios()
+            elif opcion == "4":
+                self.menu_red()
+            elif opcion == "5":
+                self.auditoria.leer_log()
+            elif opcion == "0":
+                print("Cerrando Network OS...")
+                break
+            else:
+                print("Opción inválida.")
+                
+                
+if __name__ == "__main__":
+    sistema = NetworkOS()
+    sistema.menu_principal()
