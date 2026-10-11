@@ -100,4 +100,12 @@ class ArbolDirectorios:
         contador += 1 
         return contador
     
-    
+    def mostrar(self, nodo=None, nivel=0):
+        if nodo is None:
+            nodo = self.raiz
+        prefijo = "  " * nivel
+        icono = "[Carpeta]" if nodo.tipo == "carpeta" else "[Archivo]"
+        print(f"{prefijo}{icono} {nodo.nombre}")
+        if nodo.tipo == "carpeta":
+            for hijo in nodo.hijos:
+                self.mostrar(hijo, nivel + 1)
