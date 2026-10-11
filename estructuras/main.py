@@ -66,3 +66,39 @@ class NetworkOS:
                 break
             else:
                 print("Opción inválida.")
+                
+    def menu_usuarios(self):
+        servidor = self._pedir_servidor()
+        if servidor is None:
+            return
+        while True:
+            print(f"\n--- Usuarios de {servidor.nombre} ---")
+            print("1) Registrar usuario")
+            print("2) Iniciar sesión")
+            print("3) Eliminar usuario")
+            print("4) Mostrar tabla hash (buckets)")
+            print("0) Volver")
+            opcion = input("Opción: ").strip()
+
+            if opcion == "1":
+                usuario = input("Usuario: ")
+                contrasena = input("Contraseña: ")
+                indice, _nuevo = servidor.registrar_usuario(usuario, contrasena)
+                print(f"Guardado en el bucket #{indice}.")
+                self.auditoria.registrar(f"[{servidor.nombre}] registrar_usuario {usuario}")
+            elif opcion == "2":
+                usuario = input("Usuario: ")
+                contrasena = input("Contraseña: ")
+                exito = servidor.iniciar_sesion(usuario, contrasena)
+                print("Inicio de sesión exitoso." if exito else "Credenciales incorrectas.")
+                self.auditoria.registrar(f"[{servidor.nombre}] login {usuario} -> {'EXITOSO' if exito else 'FALLIDO'}")
+            elif opcion == "3":
+                usuario = input("Usuario: ")
+                ok = servidor.usuarios.eliminar(usuario)
+                print("Usuario eliminado." if ok else "No existía ese usuario.")
+            elif opcion == "4":
+                servidor.usuarios.mostrar()
+            elif opcion == "0":
+                break
+            else:
+                print("Opción inválida.")
