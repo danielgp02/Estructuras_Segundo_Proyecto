@@ -102,3 +102,41 @@ class NetworkOS:
                 break
             else:
                 print("Opción inválida.")
+                
+    def menu_red(self):
+        while True:
+            print("\n--- Topología de red ---")
+            print("1) Agregar conexión entre servidores")
+            print("2) Eliminar conexión")
+            print("3) Simular envío de paquete (Dijkstra)")
+            print("4) Ping general (detectar servidores aislados)")
+            print("0) Volver")
+            opcion = input("Opción: ").strip()
+
+            if opcion == "1":
+                origen = input("Servidor origen: ")
+                destino = input("Servidor destino: ")
+                try:
+                    peso = float(input("Latencia (ms): "))
+                except ValueError:
+                    print("La latencia debe ser un número.")
+                    continue
+                ok, msg = self.grafo.agregar_conexion(origen, destino, peso)
+                print(msg)
+                self.auditoria.registrar(f"conexion {origen}-{destino} ({peso}ms) -> {'OK' if ok else 'FALLO'}")
+            elif opcion == "2":
+                origen = input("Servidor origen: ")
+                destino = input("Servidor destino: ")
+                ok = self.grafo.eliminar_conexion(origen, destino)
+                print("Conexión eliminada." if ok else "No existía esa conexión.")
+            elif opcion == "3":
+                origen = input("Servidor origen: ")
+                destino = input("Servidor destino: ")
+                self.grafo.simular_envio(origen, destino)
+                self.auditoria.registrar(f"ruta calculada {origen} -> {destino}")
+            elif opcion == "4":
+                self.grafo.ping_general()
+            elif opcion == "0":
+                break
+            else:
+                print("Opción inválida.")
