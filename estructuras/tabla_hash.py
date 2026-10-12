@@ -47,3 +47,67 @@ class TablaHash:
                 self.cantidad -= 1
                 return True
         return False
+
+    def buscar(self, usuarios):
+        """Verifica si un usuario existe en la tabla. Devuelve True o False."""
+        bucket = self.table[self._funcion_hash(usuarios)]
+        for u, _c in bucket:
+            if u == usuarios:
+                return True
+        return False
+
+    def autenticar(self, usuarios, contraseña):
+        """Autentica un usuario comparando usuario y contraseña. Devuelve True o False."""
+        bucket = self.table[self._funcion_hash(usuarios)]
+        for u, c in bucket:
+            if u == usuarios:
+                return c == contraseña
+        return False
+
+    def mostrar_tabla(self):
+        """Muestra el contenido de la tabla y resalta los buckets con colisiones."""
+        print(f"Tabla hash (capacidad: {self.capacidad}, elementos: {self.cantidad})")
+        print("-" * 52)
+        colisiones = 0
+        for indice, bucket in enumerate(self.table):
+            if bucket:
+                if len(bucket) > 1:
+                    colisiones += 1
+                    print(f"  [{indice}] {bucket}   <-- COLISION")
+                else:
+                    print(f"  [{indice}] {bucket}")
+        print("-" * 52)
+        print(f"Buckets con colision: {colisiones}")
+
+
+if __name__ == "__main__":
+    tabla = TablaHash(capacidad=3)
+
+    print("========== PRUEBA DE TablaHash ==========\n")
+
+    print("[1] Insertar usuarios")
+    tabla.insertar("ana", "1234")
+    tabla.insertar("bob", "abcd")
+    tabla.insertar("carla", "clave1")
+    tabla.insertar("daniel", "clave2")
+    print("    ana, bob, carla y daniel fueron insertados.\n")
+
+    print("[2] Buscar usuarios")
+    print(f"    'ana' existe? -> {tabla.buscar('ana')}")
+    print(f"    'zoe' existe? -> {tabla.buscar('zoe')}\n")
+
+    print("[3] Autenticar usuarios")
+    print(f"    ana / 1234       -> {tabla.autenticar('ana', '1234')}")
+    print(f"    ana / incorrecta -> {tabla.autenticar('ana', 'incorrecta')}")
+    print(f"    zoe / cualquiera -> {tabla.autenticar('zoe', 'cualquiera')}\n")
+
+    print("[4] Mostrar la tabla y sus colisiones")
+    tabla.mostrar_tabla()
+    print()
+
+    print("[5] Eliminar usuario 'bob'")
+    print(f"    eliminar('bob') -> {tabla.eliminar('bob')}")
+    print(f"    'bob' existe ahora? -> {tabla.buscar('bob')}\n")
+
+    print("[6] Tabla despues de eliminar")
+    tabla.mostrar_tabla()
