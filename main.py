@@ -10,6 +10,9 @@ class NetworkOS:
         self.auditoria = Auditoria()
         
     def crear_servidor(self, nombre):
+        if not nombre.strip():
+            print("El nombre del servidor no puede estar vacío.")
+            return
         if nombre in self.servidores:
             print(f"El servidor '{nombre}' ya existe.")
             return
@@ -97,7 +100,7 @@ class NetworkOS:
                 ok = servidor.usuarios.eliminar(usuario)
                 print("Usuario eliminado." if ok else "No existía ese usuario.")
             elif opcion == "4":
-                servidor.usuarios.mostrar()
+                servidor.usuarios.mostrar_tabla()
             elif opcion == "0":
                 break
             else:
@@ -120,6 +123,9 @@ class NetworkOS:
                     peso = float(input("Latencia (ms): "))
                 except ValueError:
                     print("La latencia debe ser un número.")
+                    continue
+                if peso < 0:
+                    print("La latencia no puede ser negativa.")
                     continue
                 ok, msg = self.grafo.agregar_conexion(origen, destino, peso)
                 print(msg)
@@ -162,7 +168,7 @@ class NetworkOS:
             elif opcion == "4":
                 self.menu_red()
             elif opcion == "5":
-                self.auditoria.leer_log()
+                print(self.auditoria.leer_log())
             elif opcion == "0":
                 print("Cerrando Network OS...")
                 break
@@ -172,4 +178,9 @@ class NetworkOS:
                 
 if __name__ == "__main__":
     sistema = NetworkOS()
-    sistema.menu_principal()
+    try:
+        sistema.menu_principal()
+    except EOFError:
+        # Se cerró la entrada (Ctrl+D/Ctrl+Z o canalización sin datos):
+        # se sale ordenadamente en lugar de crashear con traceback.
+        print("\nEntrada cerrada. Saliendo de Network OS...")

@@ -34,7 +34,7 @@ class ArbolDirectorios:
         partes = [p for p in ruta.strip("/").split("/") if p]
         actual = self.raiz
         for parte in partes:
-            if actual.tipo == "carpeta":
+            if actual.tipo != "carpeta":
                 return None
             siguente = actual.buscar_hijo_directo(parte)
             if siguente is None:
@@ -52,6 +52,8 @@ class ArbolDirectorios:
     
             
     def crear_carpeta(self, ruta_padre, nombre_nueva):
+        if not nombre_nueva.strip():
+            return False, "El nombre de la carpeta no puede estar vacío."
         padre = self._navegar(ruta_padre)
         if padre is None or padre.tipo != "carpeta":
             return False, f"La ruta '{ruta_padre}' no existe o no es una carpeta."
@@ -62,6 +64,8 @@ class ArbolDirectorios:
                 
                 
     def crear_archivo(self, ruta_padre, nombre_nuevo, contenido=""):
+        if not nombre_nuevo.strip():
+            return False, "El nombre del archivo no puede estar vacío."
         padre = self._navegar(ruta_padre)
         if padre is None or padre.tipo != "carpeta":
             return False, f"La ruta '{ruta_padre}' no existe o no es una carpeta."
@@ -93,11 +97,13 @@ class ArbolDirectorios:
     def _eliminar_subarbol(self, nodo):
         contador = 0
         if nodo.tipo == "carpeta":
-            for hijo in nodo.hijos:
+            # Se recorre una copia de la lista: quitar elementos de 'nodo.hijos'
+            # mientras se itera provocaba que se saltara la mitad de los hijos.
+            for hijo in list(nodo.hijos):
                 contador += self._eliminar_subarbol(hijo)
-                nodo.hijos.remove(hijo)
                 hijo.padre = None
-        contador += 1 
+            nodo.hijos.clear()
+        contador += 1
         return contador
     
     def mostrar(self, nodo=None, nivel=0):

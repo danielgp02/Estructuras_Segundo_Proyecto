@@ -1,0 +1,103 @@
+:2026-10-12 21:09:02 - Servidor 'S1' creado.
+:2026-10-12 21:09:10 - Servidor 'S2' creado.
+:2026-10-12 21:14:45 - Servidor 'web1' creado.
+:2026-10-12 21:15:05 - Servidor 'web1' creado.
+:2026-10-12 21:15:05 - [web1] crear_carpeta //docs -> OK
+:2026-10-12 21:15:05 - Servidor 'web1' creado.
+:2026-10-12 21:15:05 - [web1] crear_carpeta /docs/sub -> FALLO
+:2026-10-12 21:15:05 - [web1] crear_carpeta //archivo1.txt -> OK
+:2026-10-12 21:15:39 - Servidor 'web1' creado.
+:2026-10-12 21:15:39 - Servidor 'web1' creado.
+:2026-10-12 21:16:02 - Servidor 'web1' creado.
+:2026-10-12 21:16:02 - Servidor 'web1' creado.
+:2026-10-12 21:16:02 - [web1] crear_carpeta //a -> OK
+:2026-10-12 21:16:02 - [web1] crear_carpeta //b -> OK
+:2026-10-12 21:16:02 - [web1] crear_carpeta //c -> OK
+:2026-10-12 21:16:02 - [web1] eliminar / -> FALLO
+:2026-10-12 21:17:24 - Servidor 'web1' creado.
+:2026-10-12 21:17:24 - Servidor 'web1' creado.
+:2026-10-12 21:17:24 - [web1] crear_carpeta //a -> OK
+:2026-10-12 21:17:24 - [web1] crear_carpeta //b -> OK
+:2026-10-12 21:17:24 - [web1] crear_carpeta //c -> OK
+:2026-10-12 21:17:24 - [web1] eliminar / -> FALLO
+:2026-10-12 21:17:24 - Servidor 'web1' creado.
+:2026-10-12 21:18:41 - Servidor 'web1' creado.
+:2026-10-12 21:18:41 - Servidor 'web2' creado.
+:2026-10-12 21:18:41 - Servidor 'web3' creado.
+:2026-10-12 21:18:41 - conexion web1-web2 (5.0ms) -> OK
+:2026-10-12 21:18:41 - conexion web2-web3 (3.0ms) -> OK
+:2026-10-12 21:18:41 - ruta calculada web1 -> web2
+:2026-10-12 21:22:06 - Servidor 'web1' creado.
+:2026-10-12 21:22:06 - Servidor 'web2' creado.
+:2026-10-12 21:22:06 - conexion web1-web2 (-10.0ms) -> OK
+:2026-10-12 21:22:06 - ruta calculada web1 -> web2
+:2026-10-12 21:22:46 - Servidor '' creado.
+:2026-10-12 21:22:46 - Servidor 'web1' creado.
+:2026-10-12 21:22:46 - [] crear_archivo web1/1 -> FALLO
+:2026-10-12 21:24:44 - Servidor 'web1' creado.
+:2026-10-12 21:24:44 - [web1] crear_carpeta //docs -> OK
+:2026-10-12 21:24:44 - [web1] crear_carpeta //notas.txt -> OK
+:2026-10-12 21:30:24 - Servidor 'web1' creado.
+:2026-10-12 21:30:24 - [web1] registrar_usuario ana
+:2026-10-12 21:30:24 - [web1] login ana -> EXITOSO
+:2026-10-12 21:30:24 - [web1] login ana -> FALLIDO
+:2026-10-12 21:31:36 - Servidor 'web1' creado.
+:2026-10-12 21:31:36 - [web1] crear_carpeta //docs -> OK
+:2026-10-12 21:31:36 - [web1] crear_carpeta /docs/proyecto -> OK
+:2026-10-12 21:31:36 - [web1] crear_archivo /docs/proyecto/informe.txt -> OK
+:2026-10-12 21:31:36 - [web1] eliminar /docs -> OK
+:2026-10-12 21:32:51 - Servidor 'web1' creado.
+:2026-10-12 21:32:51 - Servidor 'web2' creado.
+:2026-10-12 21:32:51 - Servidor 'web1' creado.
+:2026-10-12 21:33:44 - Servidor 'web1' creado.
+:2026-10-12 21:34:32 - Servidor 'web1' creado.
+:2026-10-12 21:37:08 - Servidor 'web1' creado.
+:2026-10-12 21:37:08 - Servidor 'web2' creado.
+:2026-10-12 21:37:08 - Servidor 'web3' creado.
+:2026-10-12 21:37:08 - conexion web1-web2 (5.0ms) -> OK
+:2026-10-12 21:37:08 - conexion web2-web3 (3.0ms) -> OK
+:2026-10-12 21:37:08 - ruta calculada web1 -> web2
+:2026-10-12 21:38:57 - Servidor 'web1' creado.
+:2026-10-12 21:38:57 - Servidor 'web2' creado.
+:2026-10-12 21:38:57 - [web1] registrar_usuario ana
+:2026-10-12 21:38:57 - [web1] registrar_usuario bob
+:2026-10-12 21:38:57 - [web1] registrar_usuario carla
+:2026-10-12 21:38:57 - [web1] login ana -> EXITOSO
+:2026-10-12 21:38:57 - [web1] crear_carpeta //docs -> OK
+:2026-10-12 21:38:57 - [web1] crear_carpeta /docs/proyecto -> OK
+:2026-10-12 21:38:57 - [web1] crear_archivo /docs/proyecto/informe.txt -> OK
+:2026-10-12 21:38:57 - [web1] eliminar /docs -> OK
+:2026-10-12 21:38:57 - [web1] eliminar 1 -> FALLO
+:2026-10-12 21:41:11 - Servidor 'web1' creado.
+:2026-10-12 21:41:11 - Servidor 'web2' creado.
+:2026-10-12 21:41:11 - conexion web1-web2 (5.0ms) -> OK
+:2026-10-12 21:41:11 - ruta calculada web1 -> web2
+:2026-10-12 21:41:11 - [web1] crear_carpeta //docs -> OK
+:2026-10-12 21:41:11 - [web1] crear_carpeta /docs/proyecto -> OK
+:2026-10-12 21:41:11 - [web1] crear_archivo /docs/proyecto/informe.txt -> OK
+:2026-10-12 21:41:11 - [web1] eliminar /docs -> OK
+:2026-10-12 21:44:31 - Servidor 'S1' creado.
+:2026-10-12 21:44:36 - Servidor 'S2' creado.
+:2026-10-12 21:44:59 - Servidor 'S3' creado.
+:2026-10-12 21:45:04 - Servidor 'S4' creado.
+:2026-10-12 21:45:32 - [S1] registrar_usuario ana
+:2026-10-12 21:46:08 - [S1] registrar_usuario bob
+:2026-10-12 21:46:19 - [S1] registrar_usuario Aa
+:2026-10-12 21:46:56 - [S1] registrar_usuario BB
+:2026-10-12 21:47:48 - [S1] login ana -> EXITOSO
+:2026-10-12 21:48:06 - [S1] login ana -> FALLIDO
+:2026-10-12 21:49:16 - Servidor '/' creado.
+:2026-10-12 21:50:04 - Servidor '2' creado.
+:2026-10-12 21:50:39 - [S1] crear_carpeta //home -> OK
+:2026-10-12 21:51:04 - [S1] crear_carpeta //etc -> OK
+:2026-10-12 21:51:28 - [S1] crear_carpeta /home/docs -> OK
+:2026-10-12 21:52:11 - [S1] crear_archivo /home/docs/tarea.txt -> OK
+:2026-10-12 21:52:52 - [S1] crear_archivo /etc/config.cfg -> OK
+:2026-10-12 21:53:41 - [S1] eliminar /home -> OK
+:2026-10-12 21:54:12 - [S1] eliminar /noexiste -> FALLO
+:2026-10-12 21:54:54 - conexion S1-S2 (10.0ms) -> OK
+:2026-10-12 21:55:11 - conexion S2-S3 (5.0ms) -> OK
+:2026-10-12 21:55:23 - conexion S1-S3 (20.0ms) -> OK
+:2026-10-12 21:55:39 - ruta calculada S1 -> S3
+:2026-10-12 21:56:22 - conexion S3-S4 (7.0ms) -> OK
+:2026-10-12 21:57:40 - ruta calculada S1 -> S3

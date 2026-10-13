@@ -19,16 +19,19 @@ class TablaHash:
         return hash_value
 
     def insertar(self, usuarios, contraseña):
-        """Inserta un usuario o actualiza su contraseña si ya existe."""
+        """Inserta un usuario o actualiza su contraseña si ya existe.
+        Devuelve (indice_del_bucket, es_nuevo): es_nuevo es False si solo
+        se actualizó la contraseña de un usuario existente."""
         indice = self._funcion_hash(usuarios)
         bucket = self.table[indice]
 
         for i, (u, _c) in enumerate(bucket):
             if u == usuarios:
                 bucket[i] = (usuarios, contraseña)
-                return
+                return indice, False
         bucket.append((usuarios, contraseña))
         self.cantidad += 1
+        return indice, True
 
     def obtener(self, usuarios):
         """Devuelve la contraseña asociada al usuario, o None si no existe."""
