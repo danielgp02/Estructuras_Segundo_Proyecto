@@ -1,37 +1,41 @@
 from datetime import datetime
 
-class auditoria:
+
+class Auditoria:
+    """Gestor de registro de auditoría que escribe eventos en un archivo de log."""
+
     def __init__(self, ruta_archivo="Network_audit_log.txt"):
         self.ruta_archivo = ruta_archivo
 
     def registrar_evento(self, detalle):
+        """Registra un evento en el log con marca de tiempo y devuelve la línea escrita."""
         marca_tiempo = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-
         linea = f":{marca_tiempo} - {detalle}\n"
 
-        with open(self.ruta_archivo, "a") as archivo:
+        with open(self.ruta_archivo, "a", encoding="utf-8") as archivo:
             archivo.write(linea)
 
         return linea
 
     def leer_log(self):
+        """Devuelve el contenido completo del log formateado para su lectura."""
         try:
             with open(self.ruta_archivo, "r", encoding="utf-8") as archivo:
                 contenido = archivo.read()
-
         except FileNotFoundError:
-            return "Todavia no existe el registro de auditoria."
+            return "Todavía no existe el registro de auditoría."
 
         if not contenido:
-            return "El registro de auditoria esta vacio."
+            return "El registro de auditoría está vacío."
 
-        return "------ Registro de auditoria ---\n" + contenido + "------ Fin del registro de auditoria ---"
+        separador = "------ Registro de auditoría ---"
+        return f"{separador}\n{contenido}{separador}"
 
 
 if __name__ == "__main__":
-    auditoria = auditoria()
+    registro = Auditoria()
 
-    auditoria.registrar_evento("Se ha iniciado la auditoria.")
-    auditoria.registrar_evento("Se ha ejecutado una operacion.")
+    registro.registrar_evento("Se ha iniciado la auditoría.")
+    registro.registrar_evento("Se ha ejecutado una operación.")
 
-    print(auditoria.leer_log())
+    print(registro.leer_log())
